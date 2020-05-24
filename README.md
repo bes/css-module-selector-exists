@@ -14,7 +14,7 @@ class that doesn't exist in your CSS/LESS/Style module.
 Make sure to build your `PRODUCTION` builds with this environment variable set:
 
 ```
-NODE_ENV=production`
+NODE_ENV=production
 ```
 
 Otherwise this code will be included when you deploy and you don't want that!
