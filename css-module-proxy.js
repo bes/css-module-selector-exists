@@ -9,6 +9,12 @@
 module.exports = function cssLocalLoader(source, map) {
     this.cacheable();
     if (process.env.NODE_ENV !== "production") {
+        // noMatch:
+        // Makes sure that any access prefixed with underscore are filtered out
+        // otherwise it will crash at runtime when Webpack is probing the locals export.
+        // toJsonMatch:
+        // Makes sure that toJSON access on the locals object gets proxied to the correct
+        // toJSON function.
         const requireWrapper = `
             // If the access matches this regexp, skip it
             const oldLocals = exports.locals;

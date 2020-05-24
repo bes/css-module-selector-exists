@@ -9,8 +9,21 @@ CSS selector.
 In other words, your JavaScript runtime will crash when trying to use a CSS
 class that doesn't exist in your CSS/LESS/Style module.
 
+## Development VS Production
+
+Make sure to build your `PRODUCTION` builds with this environment variable set:
+
+```
+NODE_ENV=production`
+```
+
+Otherwise this code will be included when you deploy and you don't want that!
+
 ## Caveats / Known issues
 
+* You can not use a CSS selector starting with an underscore `_`. Underscore
+  is used by Webpack internals and needs to be filtered out, otherwise it
+  would crash at runtime.
 * You can not use a CSS selector named `default` because that is a reserved
   name in JavaScript and will resolve to a `Symbol` at runtime, and won't work.
 * You can not use this library with "Empty" selectors, they are not added to
@@ -18,6 +31,8 @@ class that doesn't exist in your CSS/LESS/Style module.
   must have them.
 * Probably slows down rendering by some small amount of time per CSS className
   access.
+* Again, just to make clear, don't forget: `NODE_ENV=production` when building
+  for deployment.
 * Surely, there are other bugs, please report them.
 
 EXAMPLE
@@ -55,7 +70,9 @@ path you like.
 Then add the loader ABOVE any other loaders, so that it is placed last in the
 loader evaluation chain.
 
-Here is an example for a LESS loader:
+Here is an example for a LESS loader, you may be using pure CSS or SASS, adapt
+the example accordingly:
+
 ```
 {
     test: /\.module\.less$/,
